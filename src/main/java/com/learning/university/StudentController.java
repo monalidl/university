@@ -1,8 +1,13 @@
 package com.learning.university;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Monali L on 1/20/2020
@@ -12,21 +17,29 @@ import java.util.List;
 public class StudentController {
 
     private final StudentRepository studentRepository;
+    private final StudentResourceAssembler studentResourceAssembler;
 
-    public StudentController(StudentRepository studentRepository) {
+    public StudentController(StudentRepository studentRepository,
+                             StudentResourceAssembler studentResourceAssembler1) {
         this.studentRepository = studentRepository;
+        this.studentResourceAssembler = studentResourceAssembler1;
     }
 
     // GET
     @GetMapping("/students")
-    List<Student> all() {
-        return studentRepository.findAll();
+    CollectionModel<EntityModel<Student>> all() {
+        List<EntityModel<Student>> students = studentRepository.findAll().stream()
+                .map(studentResourceAssembler::toModel)
+                .collect(Collectors.toList());
+        return new CollectionModel<>(students,
+                linkTo(methodOn(StudentController.class).all()).withSelfRel());
     }
 
     @GetMapping("/students/{id}")
-    Student one(@PathVariable Long id) {
-        return studentRepository.findById(id)
+    EntityModel one(@PathVariable Long id) {
+        Student student = studentRepository.findById(id)
                 .orElseThrow(() -> new StudentNotFoundException(id));
+        return studentResourceAssembler.toModel(student);
     }
 
     // POST
