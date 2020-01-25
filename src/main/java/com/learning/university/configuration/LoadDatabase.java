@@ -1,14 +1,13 @@
-package com.learning.university;
+package com.learning.university.configuration;
 
+import com.learning.university.model.Student;
+import com.learning.university.view.StudentRepository;
+import com.learning.university.model.Subject;
+import com.learning.university.view.SubjectRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.mapping.Collection;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.Arrays;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author Monali L on 1/20/2020
@@ -29,11 +28,6 @@ public class LoadDatabase {
         studentRepo.save(new Student("Ron Weasley"));
         studentRepo.save(new Student("Harry Potter"));
         studentRepo.save(new Student("Hermoine Grenger"));
-        /*studentRepo.save(new Student("Harry", Arrays.asList(subjectRepo.getOne((long) 2))));
-        studentRepo.save(new Student("Hermione", Arrays.asList(subjectRepo.getOne((long) 4))));
-        studentRepo.save(new Student("Ginnie", Arrays.asList(subjectRepo.getOne((long) 3))));
-        studentRepo.save(new Student("Luna", Arrays.asList(subjectRepo.getOne((long) 1))));
-        studentRepo.save(new Student("Malfoy", Arrays.asList(subjectRepo.getOne((long) 2))));*/
 
         return args -> {
             log.info("Preloading " + studentRepo);

@@ -1,7 +1,8 @@
-package com.learning.university;
+package com.learning.university.view;
 
+import com.learning.university.controller.SubjectController;
+import com.learning.university.model.Subject;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 

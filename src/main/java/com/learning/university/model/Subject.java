@@ -1,12 +1,11 @@
-package com.learning.university;
+package com.learning.university.model;
 
+import com.learning.university.model.Student;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Monali L on 1/20/2020
@@ -14,7 +13,7 @@ import java.util.Set;
 
 @Data
 @Entity
-class Subject {
+public class Subject {
 
     @Id @GeneratedValue
     private Long id;
@@ -29,7 +28,7 @@ class Subject {
 
     Subject() {}
 
-    Subject(String name, String professor) {
+    public Subject(String name, String professor) {
         this.name = name;
         this.professor = professor;
         this.enrolledStudents = new ArrayList<>();

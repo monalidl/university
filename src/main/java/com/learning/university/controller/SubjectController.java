@@ -1,5 +1,11 @@
-package com.learning.university;
+package com.learning.university.controller;
 
+import com.learning.university.view.StudentResourceAssembler;
+import com.learning.university.exception.SubjectNotFoundException;
+import com.learning.university.view.SubjectRepository;
+import com.learning.university.view.SubjectResourceAssembler;
+import com.learning.university.model.Student;
+import com.learning.university.model.Subject;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +34,7 @@ public class SubjectController {
 
     // GET
     @GetMapping("/subjects")
-    CollectionModel<EntityModel<Subject>> all() {
+    public CollectionModel<EntityModel<Subject>> all() {
         List<EntityModel<Subject>> subjects = subjectRepository.findAll().stream()
                 .map(subjectResourceAssembler::toModel)
                 .collect(Collectors.toList());
@@ -37,7 +43,7 @@ public class SubjectController {
     }
 
     @GetMapping("/subjects/{id}")
-    EntityModel one(@PathVariable Long id) {
+    public EntityModel one(@PathVariable Long id) {
         Subject subject = subjectRepository.findById(id)
                 .orElseThrow(() -> new SubjectNotFoundException(id));
         return subjectResourceAssembler.toModel(subject);

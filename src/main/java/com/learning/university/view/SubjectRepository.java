@@ -1,5 +1,6 @@
-package com.learning.university;
+package com.learning.university.view;
 
+import com.learning.university.model.Subject;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

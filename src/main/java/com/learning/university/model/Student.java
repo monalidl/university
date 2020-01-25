@@ -1,6 +1,7 @@
-package com.learning.university;
+package com.learning.university.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.learning.university.model.Subject;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ import java.util.Set;
 
 @Data
 @Entity
-class Student {
+public class Student {
 
     @Id @GeneratedValue
     private Long id;
@@ -27,12 +28,11 @@ class Student {
     @JoinTable(name = "student_subjects",
         joinColumns = @JoinColumn(name = "subject_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"))
-    //@JsonIgnore
     private List<Subject> enrolledSubjects;
 
     Student() {}
 
-    Student(String name) {
+    public Student(String name) {
         this.name = name;
         this.enrolledSubjects = new ArrayList<>();
     }
