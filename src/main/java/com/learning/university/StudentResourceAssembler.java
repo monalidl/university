@@ -17,6 +17,7 @@ public class StudentResourceAssembler implements RepresentationModelAssembler<St
 
     @Override
     public EntityModel<Student> toModel(Student student) {
+        System.out.println("DEBUG: toModel student - " + student);
         return new EntityModel<Student>(student,
                 linkTo(methodOn(StudentController.class).one(student.getId())).withSelfRel(),
                 linkTo(methodOn(StudentController.class).all()).withRel("student"));

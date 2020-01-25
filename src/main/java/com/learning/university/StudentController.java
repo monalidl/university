@@ -43,18 +43,21 @@ public class StudentController {
     }
 
     // POST
-    @PostMapping("/students")
+    @PostMapping("/students/add")
     Student createStudent(@RequestBody Student newStudent) {
+        System.out.println("DEBUG: newStudent in POST - " + newStudent);
+        System.out.println("DEBUG: studentRepository - " + studentRepository);
         return studentRepository.save(newStudent);
     }
 
     // PUT
-    @PutMapping("/students/{id}")
+    @PutMapping("/students/{id}/update")
     Student editStudent(@RequestBody Student newStudent, @PathVariable Long id) {
+        System.out.println("DEBUG: newStudent in PUT - " + newStudent);
         return studentRepository.findById(id)
                 .map(student -> {
                     student.setName(newStudent.getName());
-                    student.setEnrolledSubject(newStudent.getEnrolledSubject());
+                    student.setEnrolledSubjects(newStudent.getEnrolledSubjects());
                     return studentRepository.save(student);
                 })
                 .orElseGet(() -> {
